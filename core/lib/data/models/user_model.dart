@@ -1,8 +1,8 @@
+import 'package:core/domain/entities/user.dart';
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
 class UserModel extends Equatable {
-  UserModel({
+  const UserModel({
     required this.login,
     required this.id,
     required this.nodeId,
@@ -24,25 +24,25 @@ class UserModel extends Equatable {
     required this.score,
   });
 
-  String login;
-  int id;
-  String nodeId;
-  String avatarUrl;
-  String gravatarId;
-  String url;
-  String htmlUrl;
-  String followersUrl;
-  String followingUrl;
-  String gistsUrl;
-  String starredUrl;
-  String subscriptionsUrl;
-  String organizationsUrl;
-  String reposUrl;
-  String eventsUrl;
-  String receivedEventsUrl;
-  String type;
-  bool siteAdmin;
-  int score;
+  final String login;
+  final int id;
+  final String nodeId;
+  final String avatarUrl;
+  final String gravatarId;
+  final String url;
+  final String htmlUrl;
+  final String followersUrl;
+  final String followingUrl;
+  final String gistsUrl;
+  final String starredUrl;
+  final String subscriptionsUrl;
+  final String organizationsUrl;
+  final String reposUrl;
+  final String eventsUrl;
+  final String receivedEventsUrl;
+  final String type;
+  final bool siteAdmin;
+  final int score;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         login: json["login"],
@@ -87,6 +87,15 @@ class UserModel extends Equatable {
         "site_admin": siteAdmin,
         "score": score,
       };
+
+  User toEntity() {
+    return User(
+      avatarUrl: avatarUrl,
+      url: url,
+      login: login,
+      id: id,
+    );
+  }
 
   @override
   List<Object?> get props => [

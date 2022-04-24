@@ -14,7 +14,7 @@ abstract class RemoteDataSource {
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
-  static const String _baseURL = 'https://api.github.com/search/';
+  static const String _baseURL = 'https://api.github.com/search';
 
   final http.Client client;
 
@@ -23,11 +23,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<UserModel>> getUserSearch(String query) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/users?q=$query&per_page=100'),
+      Uri.parse(_baseURL + '/users?q=$query&per_page=20'),
     );
 
+    final result = UserSearchResponse.fromJson(json.decode(response.body));
+    print(result);
+
     if (response.statusCode == 200) {
-      return UserSearchResponse.fromJson(json.decode(response.body)).user;
+      return userSearchResponseFromJson(response.body).user;
     } else {
       throw ServerException();
     }
@@ -36,8 +39,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<IssueModel>> getIssuesSearch(String query) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/issues?q=$query&per_page=100'),
+      Uri.parse(_baseURL + '/issues?q=$query&per_page=10'),
     );
+
+    print('nabrak');
+    final result = IssuesSearchResponse.fromJson(json.decode(response.body));
+    print(result);
+    print('leawt');
 
     if (response.statusCode == 200) {
       return IssuesSearchResponse.fromJson(json.decode(response.body)).issue;

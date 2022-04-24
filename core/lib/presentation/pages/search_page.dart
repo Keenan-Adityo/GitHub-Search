@@ -1,5 +1,7 @@
 import 'package:core/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:core/presentation/bloc/pagination_bloc/pagination_bloc.dart';
+import 'package:core/presentation/bloc/search_issues_bloc/search_issues_bloc.dart';
+import 'package:core/presentation/bloc/search_user_bloc/search_user_bloc.dart';
 import 'package:core/presentation/widgets/issues_card.dart';
 import 'package:core/presentation/widgets/paginations.dart';
 import 'package:core/presentation/widgets/repo_card.dart';
@@ -11,8 +13,8 @@ import 'package:core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserSearchPage extends StatelessWidget {
-  const UserSearchPage({Key? key}) : super(key: key);
+class SearchPage extends StatelessWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,11 @@ class UserSearchList extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 40),
                 child: TextField(
-                  onChanged: (query) {},
+                  onSubmitted: (query) {
+                    context.read<SearchIssuesBloc>().add(OnSubmittedIssues(query));
+                  },
+                  style: kHeading6.copyWith(color: Colors.white),
+                  cursorColor: Colors.white,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
@@ -74,22 +80,36 @@ class UserSearchList extends StatelessWidget {
             ),
             const SliverHeader(),
             SliverList(
-                delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return BlocBuilder<CategoryBloc, CategoryState>(
-                  builder: (context, state) {
-                    if (state is UserState) {
-                      return UserCard();
-                    } else if (state is IssuesState) {
-                      return IssuesCard();
-                    } else {
-                      return RepoCard();
-                    }
-                  },
-                );
-              },
-              childCount: 50,
-            ))
+                delegate: SliverChildListDelegate([
+              BlocBuilder<CategoryBloc, CategoryState>(
+                builder: (context, state) {
+                  if (state is UserState) {
+                    return BlocBuilder<SearchUserBloc, SearchUserState>(
+                      builder: (context, state) {
+                        if (state is UserLoading) {
+                          return CircularProgressIndicator();
+                        } else if (state is UserEmpty) {
+                          return Container();
+                        } else if (state is UserHasData) {
+                          return ListView.builder(
+                            itemBuilder: (context, index) {
+                              final user = state.result[index];
+                              return UserCard(user: user);
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    );
+                  } else if (state is IssuesState) {
+                    return Container();
+                  } else {
+                    return Container();
+                  }
+                },
+              )
+            ])),
           ],
         ),
       ),

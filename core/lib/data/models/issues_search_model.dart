@@ -1,24 +1,26 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:core/data/models/user_model.dart';
+import 'package:core/domain/entities/issues.dart';
 import 'package:equatable/equatable.dart';
 
 class IssuesSearchResponse extends Equatable {
-  IssuesSearchResponse({
+  const IssuesSearchResponse({
     required this.totalCount,
     required this.incompleteResults,
     required this.issue,
   });
 
-  int totalCount;
-  bool incompleteResults;
-  List<IssueModel> issue;
+  final int totalCount;
+  final bool incompleteResults;
+  final List<IssueModel> issue;
 
   factory IssuesSearchResponse.fromJson(Map<String, dynamic> json) =>
       IssuesSearchResponse(
         totalCount: json["total_count"],
         incompleteResults: json["incomplete_results"],
-        issue: List<IssueModel>.from(json["items"].map((x) => IssueModel.fromJson(x))),
+        issue: List<IssueModel>.from(
+            json["items"].map((x) => IssueModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,7 +38,7 @@ class IssuesSearchResponse extends Equatable {
 }
 
 class IssueModel extends Equatable {
-  IssueModel({
+  const IssueModel({
     required this.url,
     required this.repositoryUrl,
     required this.labelsUrl,
@@ -69,36 +71,36 @@ class IssueModel extends Equatable {
     required this.pullRequest,
   });
 
-  String url;
-  String repositoryUrl;
-  String labelsUrl;
-  String commentsUrl;
-  String eventsUrl;
-  String htmlUrl;
-  int id;
-  String nodeId;
-  int number;
-  String title;
-  UserModel user;
-  List<Label> labels;
-  String state;
-  bool locked;
-  dynamic assignee;
-  List<dynamic> assignees;
-  dynamic milestone;
-  int comments;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime? closedAt;
-  String authorAssociation;
-  dynamic activeLockReason;
-  String body;
-  Reactions reactions;
-  String timelineUrl;
-  dynamic performedViaGithubApp;
-  int score;
-  bool draft;
-  PullRequest? pullRequest;
+  final String url;
+  final String repositoryUrl;
+  final String labelsUrl;
+  final String commentsUrl;
+  final String eventsUrl;
+  final String htmlUrl;
+  final int id;
+  final String nodeId;
+  final int number;
+  final String title;
+  final UserModel user;
+  final List<Label> labels;
+  final String state;
+  final bool locked;
+  final dynamic assignee;
+  final List<dynamic> assignees;
+  final dynamic milestone;
+  final int comments;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? closedAt;
+  final String authorAssociation;
+  final dynamic activeLockReason;
+  final String body;
+  final Reactions reactions;
+  final String timelineUrl;
+  final dynamic performedViaGithubApp;
+  final int score;
+  final bool draft;
+  final PullRequest? pullRequest;
 
   factory IssueModel.fromJson(Map<String, dynamic> json) => IssueModel(
         url: json["url"],
@@ -170,6 +172,16 @@ class IssueModel extends Equatable {
         "pull_request": pullRequest?.toJson(),
       };
 
+  Issues toEntity() {
+    return Issues(
+      title: title,
+      updatedAt: updatedAt,
+      // user: user,
+      id: id,
+      state: state,
+    );
+  }
+
   @override
   List<Object?> get props => [
         url,
@@ -206,7 +218,7 @@ class IssueModel extends Equatable {
 }
 
 class Label extends Equatable {
-  Label({
+  const Label({
     required this.id,
     required this.nodeId,
     required this.url,
@@ -216,13 +228,13 @@ class Label extends Equatable {
     required this.description,
   });
 
-  int id;
-  String nodeId;
-  String url;
-  String name;
-  String color;
-  bool labelDefault;
-  String description;
+  final int id;
+  final String nodeId;
+  final String url;
+  final String name;
+  final String color;
+  final bool labelDefault;
+  final String description;
 
   factory Label.fromJson(Map<String, dynamic> json) => Label(
         id: json["id"],
@@ -246,18 +258,18 @@ class Label extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    nodeId,
-    url,
-    name,
-    color,
-    labelDefault,
-    description,
-  ];
+        id,
+        nodeId,
+        url,
+        name,
+        color,
+        labelDefault,
+        description,
+      ];
 }
 
 class PullRequest extends Equatable {
-  PullRequest({
+  const PullRequest({
     required this.url,
     required this.htmlUrl,
     required this.diffUrl,
@@ -265,11 +277,11 @@ class PullRequest extends Equatable {
     required this.mergedAt,
   });
 
-  String url;
-  String htmlUrl;
-  String diffUrl;
-  String patchUrl;
-  DateTime? mergedAt;
+  final String url;
+  final String htmlUrl;
+  final String diffUrl;
+  final String patchUrl;
+  final DateTime? mergedAt;
 
   factory PullRequest.fromJson(Map<String, dynamic> json) => PullRequest(
         url: json["url"],
@@ -291,16 +303,16 @@ class PullRequest extends Equatable {
 
   @override
   List<Object?> get props => [
-    url,
-    htmlUrl,
-    diffUrl,
-    patchUrl,
-    mergedAt,
-  ];
+        url,
+        htmlUrl,
+        diffUrl,
+        patchUrl,
+        mergedAt,
+      ];
 }
 
 class Reactions extends Equatable {
-  Reactions({
+  const Reactions({
     required this.url,
     required this.totalCount,
     required this.the1,
@@ -313,16 +325,16 @@ class Reactions extends Equatable {
     required this.eyes,
   });
 
-  String url;
-  int totalCount;
-  int the1;
-  int reactions1;
-  int laugh;
-  int hooray;
-  int confused;
-  int heart;
-  int rocket;
-  int eyes;
+  final String url;
+  final int totalCount;
+  final int the1;
+  final int reactions1;
+  final int laugh;
+  final int hooray;
+  final int confused;
+  final int heart;
+  final int rocket;
+  final int eyes;
 
   factory Reactions.fromJson(Map<String, dynamic> json) => Reactions(
         url: json["url"],
@@ -352,15 +364,15 @@ class Reactions extends Equatable {
 
   @override
   List<Object?> get props => [
-    url,
-    totalCount,
-    the1,
-    reactions1,
-    laugh,
-    hooray,
-    confused,
-    heart,
-    rocket,
-    eyes,
-  ];
+        url,
+        totalCount,
+        the1,
+        reactions1,
+        laugh,
+        hooray,
+        confused,
+        heart,
+        rocket,
+        eyes,
+      ];
 }

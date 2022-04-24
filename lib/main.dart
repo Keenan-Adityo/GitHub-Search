@@ -1,7 +1,10 @@
 import 'package:core/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:core/presentation/bloc/pagination_bloc/pagination_bloc.dart';
-import 'package:core/presentation/pages/user_search_page.dart';
+import 'package:core/presentation/bloc/search_issues_bloc/search_issues_bloc.dart';
+import 'package:core/presentation/bloc/search_repo_bloc/search_repo_bloc.dart';
+import 'package:core/presentation/bloc/search_user_bloc/search_user_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:core/presentation/pages/search_page.dart';
 import 'package:sejutacita_github_search/injection.dart' as inject;
 import 'package:flutter/material.dart';
 
@@ -23,6 +26,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => inject.locator<PaginationBloc>(),
         ),
+        BlocProvider(
+          create: (_) => inject.locator<SearchUserBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => inject.locator<SearchIssuesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => inject.locator<SearchRepoBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -30,7 +42,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const UserSearchPage(),
+        home: const SearchPage(),
       ),
     );
   }
