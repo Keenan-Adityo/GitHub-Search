@@ -345,7 +345,7 @@ class RepoModel extends Equatable {
         "archived": archived,
         "disabled": disabled,
         "open_issues_count": openIssuesCount,
-        "license": license == null ? null : license?.toJson(),
+        "license": license?.toJson(),
         "allow_forking": allowForking,
         "is_template": isTemplate,
         "topics": List<dynamic>.from(topics.map((x) => x)),

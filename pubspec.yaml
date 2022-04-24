@@ -38,6 +38,8 @@ dependencies:
 
   core:
     path: core
+  google_fonts: ^2.3.1
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
