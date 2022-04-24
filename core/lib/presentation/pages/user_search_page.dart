@@ -1,8 +1,11 @@
 import 'package:core/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:core/presentation/bloc/pagination_bloc/pagination_bloc.dart';
+import 'package:core/presentation/widgets/issues_card.dart';
 import 'package:core/presentation/widgets/paginations.dart';
+import 'package:core/presentation/widgets/repo_card.dart';
 import 'package:core/presentation/widgets/search_category.dart';
 import 'package:core/presentation/widgets/sliver_delegate.dart';
+import 'package:core/presentation/widgets/user_card.dart';
 import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +44,7 @@ class UserSearchList extends StatelessWidget {
             // TODO: sliver appbar bentuknya dibenerin
             SliverAppBar(
               floating: true,
+              snap: true,
               expandedHeight: 100,
               backgroundColor: mainColor,
               flexibleSpace: Padding(
@@ -69,6 +73,23 @@ class UserSearchList extends StatelessWidget {
               ),
             ),
             const SliverHeader(),
+            SliverList(
+                delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
+                    if (state is UserState) {
+                      return UserCard();
+                    } else if (state is IssuesState) {
+                      return IssuesCard();
+                    } else {
+                      return RepoCard();
+                    }
+                  },
+                );
+              },
+              childCount: 50,
+            ))
           ],
         ),
       ),
@@ -97,7 +118,7 @@ class SliverHeader extends StatelessWidget {
         maxHeight: 120,
         child: Container(
           color: mainColor,
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           child: Column(
             children: [
               Row(
