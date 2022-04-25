@@ -21,7 +21,10 @@ class UserCardList extends StatelessWidget {
             child: Container(
               height: 75,
               color: mainColor,
-              child: Image(image: NetworkImage(user.avatarUrl)),
+              child: Image(
+                image: NetworkImage(user.avatarUrl),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Expanded(
@@ -30,7 +33,7 @@ class UserCardList extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 user.login,
-                style: kHeading5,
+                style: kHeading5.copyWith(fontSize: 16),
               ),
             ),
           )
@@ -56,7 +59,10 @@ class IssuesCardList extends StatelessWidget {
             child: Container(
               height: 75,
               color: mainColor,
-              child: Image(image: NetworkImage(issues.user.avatarUrl)),
+              child: Image(
+                image: NetworkImage(issues.user.avatarUrl),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Expanded(
@@ -66,19 +72,53 @@ class IssuesCardList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    issues.title,
-                    style: kHeading5,
+                  RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                      text: issues.title,
+                      style:
+                          kHeading5.copyWith(color: Colors.black, fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Text(
-                    issues.updatedAt.year.toString(),
-                    style: kSubtitle,
+                    'Last Update: ' +
+                        issues.updatedAt.day.toString() +
+                        '/' +
+                        issues.updatedAt.month.toString() +
+                        '/' +
+                        issues.updatedAt.year.toString(),
+                    style: kSubtitle.copyWith(fontSize: 10),
                   ),
                 ],
               ),
             ),
           ),
-          Text(issues.state)
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 8,
+              top: 8,
+            ),
+            child: Container(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Text(
+                  issues.state,
+                  style: kHeading6.copyWith(
+                    fontSize: 10,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xff2dba4e),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -101,7 +141,10 @@ class RepoCardList extends StatelessWidget {
             child: Container(
               height: 75,
               color: mainColor,
-              child: Image(image: NetworkImage(repo.owner.avatarUrl)),
+              child: Image(
+                image: NetworkImage(repo.owner.avatarUrl),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Expanded(
@@ -111,69 +154,88 @@ class RepoCardList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    repo.name,
-                    style: kHeading5,
+                  RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                      text: repo.name,
+                      style:
+                          kHeading5.copyWith(color: Colors.black, fontSize: 14),
+                    ),
                   ),
                   Text(
-                    repo.createdAt.year.toString(),
-                    style: kSubtitle,
+                    'Created at: ' +
+                        repo.createdAt.day.toString() +
+                        '/' +
+                        repo.createdAt.month.toString() +
+                        '/' +
+                        repo.createdAt.year.toString(),
+                    style: kSubtitle.copyWith(fontSize: 10),
                   ),
                 ],
               ),
             ),
           ),
-          Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    repo.watchersCount.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(
-                    Icons.remove_red_eye_sharp,
-                    size: 18,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    repo.stargazersCount.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(
-                    Icons.star,
-                    size: 18,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    repo.forksCount.toString(),
-                    textAlign: TextAlign.end,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Icon(
-                    Icons.web_stories,
-                    size: 18,
-                  )
-                ],
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      repo.watchersCount.toString(),
+                      textAlign: TextAlign.end,
+                      style: kHeading5.copyWith(
+                          fontSize: 10, color: Colors.grey[800]),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(
+                      Icons.remove_red_eye_sharp,
+                      size: 12,
+                      color: Colors.blue,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      repo.stargazersCount.toString(),
+                      textAlign: TextAlign.end,
+                      style: kHeading5.copyWith(fontSize: 10),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(
+                      Icons.star,
+                      size: 12,
+                      color: Colors.blue,
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      repo.forksCount.toString(),
+                      textAlign: TextAlign.end,
+                      style: kHeading5.copyWith(fontSize: 10),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(
+                      Icons.web_stories,
+                      size: 12,
+                      color: Colors.blue,
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -199,21 +261,12 @@ class UserCardGrid extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0),
+            padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
             child: Text(
               user.login,
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: kHeading6.copyWith(fontSize: 14),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-          //   child: Text(
-          //     place.location,
-          //   ),
-          // ),
         ],
       ),
     );
@@ -250,7 +303,13 @@ class IssuesCardGrid extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
             child: Text(
-              issues.updatedAt.year.toString(),
+              'Last Update: ' +
+                  issues.updatedAt.day.toString() +
+                  '/' +
+                  issues.updatedAt.month.toString() +
+                  '/' +
+                  issues.updatedAt.year.toString(),
+              style: kSubtitle.copyWith(fontSize: 10),
             ),
           ),
         ],
@@ -289,7 +348,13 @@ class RepoCardGrid extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
             child: Text(
-              repo.createdAt.year.toString(),
+              'Created at: ' +
+                  repo.createdAt.day.toString() +
+                  '/' +
+                  repo.createdAt.month.toString() +
+                  '/' +
+                  repo.createdAt.year.toString(),
+              style: kSubtitle.copyWith(fontSize: 10),
             ),
           ),
         ],

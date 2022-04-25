@@ -316,8 +316,8 @@ class SliverHeader extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: SliverDelegate(
-        minHeight: 120,
-        maxHeight: 120,
+        minHeight: 130,
+        maxHeight: 130,
         child: Container(
           color: mainColor,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -347,9 +347,10 @@ class SliverHeader extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 16,
+                height: 28,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     onTap: () {

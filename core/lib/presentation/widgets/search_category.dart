@@ -1,5 +1,4 @@
 import 'package:core/presentation/bloc/category_bloc/category_bloc.dart';
-import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class SearchCategory extends StatelessWidget {
                     child: Container(
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: mainColor,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
@@ -57,7 +56,7 @@ class SearchCategory extends StatelessWidget {
           Text(
             category,
             style: kHeading6.copyWith(
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.white,
             ),
           )

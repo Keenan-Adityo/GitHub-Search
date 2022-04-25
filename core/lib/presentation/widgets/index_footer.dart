@@ -20,7 +20,7 @@ class IndexFooter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 50,
+              width: 30,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.page != 1) {
@@ -37,13 +37,13 @@ class IndexFooter extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  '<-',
-                  style: kHeading6,
+                  '<',
+                  style: kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              width: 50,
+              width: 30,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.page != 1) {
@@ -64,12 +64,14 @@ class IndexFooter extends StatelessWidget {
                 },
                 child: Text(
                   '1',
-                  style: kHeading6,
+                  style: (categoryState.page == 1)
+                      ? kHeading6.copyWith(fontSize: 16)
+                      : kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              width: 50,
+              width: 30,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.page <= 4 && categoryState.page != 2) {
@@ -90,12 +92,14 @@ class IndexFooter extends StatelessWidget {
                 },
                 child: Text(
                   (categoryState.page <= 4) ? '2' : '.',
-                  style: kHeading6,
+                  style: (categoryState.page == 2)
+                      ? kHeading6.copyWith(fontSize: 16)
+                      : kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              width: 50,
+              width: 35,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.page <= 4) {
@@ -129,12 +133,14 @@ class IndexFooter extends StatelessWidget {
                   (categoryState.page <= 4)
                       ? '3'
                       : (categoryState.page - 1).toString(),
-                  style: kHeading6,
+                  style: (categoryState.page == 3)
+                      ? kHeading6.copyWith(fontSize: 16)
+                      : kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              width: 50,
+              width: 35,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.page < 4) {
@@ -157,12 +163,14 @@ class IndexFooter extends StatelessWidget {
                   (categoryState.page <= 4)
                       ? '4'
                       : categoryState.page.toString(),
-                  style: kHeading6,
+                  style: (categoryState.page > 3)
+                      ? kHeading6.copyWith(fontSize: 16)
+                      : kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              width: 50,
+              width: 35,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.page <= 4) {
@@ -196,12 +204,12 @@ class IndexFooter extends StatelessWidget {
                   (categoryState.page <= 4)
                       ? '5'
                       : (categoryState.page + 1).toString(),
-                  style: kHeading6,
+                  style: kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              width: 50,
+              width: 30,
               child: TextButton(
                 onPressed: () {
                   if (categoryState.category == 'User') {
@@ -216,8 +224,8 @@ class IndexFooter extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  '->',
-                  style: kHeading6,
+                  '>',
+                  style: kHeading6.copyWith(fontSize: 16, color: Colors.grey),
                 ),
               ),
             ),
