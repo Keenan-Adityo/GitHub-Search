@@ -55,7 +55,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     });
 
     on<OnScrollUser>((event, emit) async {
-      CategoryState categoryState = state as CategoryState;
+      CategoryState categoryState = state;
 
       int pages = categoryState.page + 1;
       final result = await _getUser.execute(event.query, pages);
@@ -100,7 +100,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     });
 
     on<OnScrollIssues>((event, emit) async {
-      CategoryState categoryState = state as CategoryState;
+      CategoryState categoryState = state;
 
       int pages = categoryState.page + 1;
       final result = await _getIssues.execute(event.query, pages);
@@ -145,7 +145,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     });
 
     on<OnScrollRepo>((event, emit) async {
-      CategoryState categoryState = state as CategoryState;
+      CategoryState categoryState = state;
 
       int pages = categoryState.page + 1;
       final result = await _getRepo.execute(event.query, pages);

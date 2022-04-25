@@ -19,7 +19,30 @@ class IndexFooter extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
+              width: 50,
+              child: TextButton(
+                onPressed: () {
+                  if (categoryState.page != 1) {
+                    if (categoryState.category == 'User') {
+                      context.read<CategoryBloc>().add(OnSubmittedUser(
+                          _textController.text, categoryState.page - 1));
+                    } else if (categoryState.category == 'Issues') {
+                      context.read<CategoryBloc>().add(OnSubmittedIssues(
+                          _textController.text, categoryState.page - 1));
+                    } else {
+                      context.read<CategoryBloc>().add(OnSubmittedRepo(
+                          _textController.text, categoryState.page - 1));
+                    }
+                  }
+                },
+                child: Text(
+                  '<-',
+                  style: kHeading6,
+                ),
+              ),
+            ),
+            SizedBox(
               width: 50,
               child: TextButton(
                 onPressed: () {
@@ -40,35 +63,12 @@ class IndexFooter extends StatelessWidget {
                   }
                 },
                 child: Text(
-                  '<-',
-                  style: kHeading6,
-                ),
-              ),
-            ),
-            Container(
-              width: 50,
-              child: TextButton(
-                onPressed: () {
-                  if (categoryState.page != 1) {
-                    if (categoryState.category == 'User') {
-                      context.read<CategoryBloc>().add(OnSubmittedUser(
-                          _textController.text, categoryState.page - 1));
-                    } else if (categoryState.category == 'Issues') {
-                      context.read<CategoryBloc>().add(OnSubmittedIssues(
-                          _textController.text, categoryState.page - 1));
-                    } else {
-                      context.read<CategoryBloc>().add(OnSubmittedRepo(
-                          _textController.text, categoryState.page - 1));
-                    }
-                  }
-                },
-                child: Text(
                   '1',
                   style: kHeading6,
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: TextButton(
                 onPressed: () {
@@ -94,7 +94,7 @@ class IndexFooter extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: TextButton(
                 onPressed: () {
@@ -133,7 +133,7 @@ class IndexFooter extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: TextButton(
                 onPressed: () {
@@ -161,7 +161,7 @@ class IndexFooter extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: TextButton(
                 onPressed: () {
@@ -200,7 +200,7 @@ class IndexFooter extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 50,
               child: TextButton(
                 onPressed: () {

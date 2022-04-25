@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:core/data/models/user_model.dart';
-import 'package:core/domain/entities/user.dart';
-import 'package:equatable/equatable.dart';
 
 // class UserSearchResponse extends Equatable {
 //   const UserSearchResponse({

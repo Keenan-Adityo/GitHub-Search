@@ -5,8 +5,10 @@ import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WithIndexList extends StatelessWidget {
-  const WithIndexList({
+class Grid extends StatelessWidget {
+  final int gridCount;
+  const Grid({
+    required this.gridCount,
     Key? key,
   }) : super(key: key);
 
@@ -20,14 +22,13 @@ class WithIndexList extends StatelessWidget {
           } else if (state.userState == RequestState.empty) {
             return const EmptyIndicator();
           } else if (state.userState == RequestState.loaded) {
-            return SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final user = state.userResult[index];
-                  return UserCard(user: user);
-                },
-                childCount: state.userResult.length,
-              ),
+            return SliverGrid.count(
+              crossAxisCount: gridCount,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              children: state.userResult.map((user) {
+                return UserCardGrid(user: user);
+              }).toList(),
             );
           } else {
             return const ErrorIndicator();
@@ -38,14 +39,13 @@ class WithIndexList extends StatelessWidget {
           } else if (state.issuesState == RequestState.empty) {
             return const EmptyIndicator();
           } else if (state.issuesState == RequestState.loaded) {
-            return SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final issues = state.issuesResult[index];
-                  return IssuesCard(issues: issues);
-                },
-                childCount: state.issuesResult.length,
-              ),
+            return SliverGrid.count(
+              crossAxisCount: gridCount,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              children: state.issuesResult.map((issues) {
+                return IssuesCardGrid(issues: issues);
+              }).toList(),
             );
           } else {
             return const ErrorIndicator();
@@ -56,16 +56,13 @@ class WithIndexList extends StatelessWidget {
           } else if (state.repoState == RequestState.empty) {
             return const EmptyIndicator();
           } else if (state.repoState == RequestState.loaded) {
-            return SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final repo = state.repoResult[index];
-                  return RepoCard(
-                    repo: repo,
-                  );
-                },
-                childCount: state.repoResult.length,
-              ),
+            return SliverGrid.count(
+              crossAxisCount: gridCount,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              children: state.repoResult.map((repo) {
+                return RepoCardGrid(repo: repo);
+              }).toList(),
             );
           } else {
             return const ErrorIndicator();

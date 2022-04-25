@@ -17,13 +17,13 @@ class Paginations extends StatelessWidget {
         color: Colors.white,
       ),
       child: Padding(
-        padding: EdgeInsets.all(2.0),
+        padding: const EdgeInsets.all(2.0),
         child: BlocBuilder<PaginationBloc, PaginationState>(
           builder: (context, state) {
             if (pagination == state.pagination) {
               return Container(
                 child: Padding(
-                  padding: EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Text(
                     pagination,
                     style: kHeading6.copyWith(
@@ -40,7 +40,7 @@ class Paginations extends StatelessWidget {
             } else {
               return Container(
                 child: Padding(
-                  padding: EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Text(
                     pagination,
                     style: kHeading6.copyWith(

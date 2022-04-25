@@ -29,7 +29,7 @@ class IssuesSearchResponse {
 }
 
 class IssuesModel extends Equatable {
-  IssuesModel({
+  const IssuesModel({
     required this.title,
     required this.state,
     required this.updatedAt,

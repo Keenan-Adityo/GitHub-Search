@@ -1,11 +1,11 @@
 import 'package:core/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:core/presentation/bloc/pagination_bloc/pagination_bloc.dart';
 import 'package:core/presentation/widgets/index_footer.dart';
-import 'package:core/presentation/widgets/lazyloading.dart';
+import 'package:core/presentation/widgets/list.dart';
 import 'package:core/presentation/widgets/paginations.dart';
 import 'package:core/presentation/widgets/search_category.dart';
 import 'package:core/presentation/widgets/sliver_delegate.dart';
-import 'package:core/presentation/widgets/with_index.dart';
+import 'package:core/presentation/widgets/grid.dart';
 import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +23,9 @@ class SearchPage extends StatelessWidget {
           if (constraints.maxWidth <= 600) {
             return const UserSearchList();
           } else if (constraints.maxWidth <= 1200) {
-            return const UserSearchGrid();
+            return const UserSearchGrid(gridCount: 4);
           } else {
-            return const UserSearchGrid();
+            return const UserSearchGrid(gridCount: 6);
           }
         },
       ),
@@ -158,9 +158,9 @@ class ListCustomScrollView extends StatelessWidget {
         BlocBuilder<PaginationBloc, PaginationState>(
           builder: (context, state) {
             if (state is LazyState) {
-              return LazyLoadingList();
+              return const LazyLoadingList();
             } else {
-              return WithIndexList();
+              return const WithIndexList();
             }
           },
         ),
@@ -170,7 +170,9 @@ class ListCustomScrollView extends StatelessWidget {
 }
 
 class UserSearchGrid extends StatefulWidget {
-  const UserSearchGrid({Key? key}) : super(key: key);
+  final int gridCount;
+
+  const UserSearchGrid({required this.gridCount, Key? key}) : super(key: key);
 
   @override
   State<UserSearchGrid> createState() => _UserSearchGridState();
@@ -207,12 +209,17 @@ class _UserSearchGridState extends State<UserSearchGrid> {
                           .add(OnScrollRepo(_textController.text));
                     }
                   },
-                  child: GridCustomScrollView(textController: _textController),
+                  child: GridCustomScrollView(
+                    textController: _textController,
+                    gridCount: widget.gridCount,
+                  ),
                 ),
               );
             } else {
               return Scaffold(
-                body: GridCustomScrollView(textController: _textController),
+                body: GridCustomScrollView(
+                    textController: _textController,
+                    gridCount: widget.gridCount),
                 persistentFooterButtons: [
                   IndexFooter(
                     textController: _textController,
@@ -228,7 +235,9 @@ class _UserSearchGridState extends State<UserSearchGrid> {
 }
 
 class GridCustomScrollView extends StatelessWidget {
+  final int gridCount;
   const GridCustomScrollView({
+    required this.gridCount,
     Key? key,
     required TextEditingController textController,
   })  : _textController = textController,
@@ -291,14 +300,8 @@ class GridCustomScrollView extends StatelessWidget {
           ),
         ),
         const SliverHeader(),
-        BlocBuilder<PaginationBloc, PaginationState>(
-          builder: (context, state) {
-            if (state is LazyState) {
-              return LazyLoadingList();
-            } else {
-              return WithIndexList();
-            }
-          },
+        Grid(
+          gridCount: gridCount,
         ),
       ],
     );

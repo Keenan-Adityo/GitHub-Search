@@ -5,10 +5,10 @@ import 'package:core/styles/colors.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class UserCard extends StatelessWidget {
+class UserCardList extends StatelessWidget {
   final User user;
 
-  const UserCard({required this.user, Key? key}) : super(key: key);
+  const UserCardList({required this.user, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +40,10 @@ class UserCard extends StatelessWidget {
   }
 }
 
-class IssuesCard extends StatelessWidget {
+class IssuesCardList extends StatelessWidget {
   final Issues issues;
 
-  const IssuesCard({required this.issues, Key? key}) : super(key: key);
+  const IssuesCardList({required this.issues, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +85,10 @@ class IssuesCard extends StatelessWidget {
   }
 }
 
-class RepoCard extends StatelessWidget {
+class RepoCardList extends StatelessWidget {
   final Repo repo;
 
-  const RepoCard({required this.repo, Key? key}) : super(key: key);
+  const RepoCardList({required this.repo, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -125,11 +125,173 @@ class RepoCard extends StatelessWidget {
           ),
           Column(
             children: [
-              Text('Total Watchers'),
-              Text('Total Stars'),
-              Text('Total Forks'),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    repo.watchersCount.toString(),
+                    textAlign: TextAlign.end,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.remove_red_eye_sharp,
+                    size: 18,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    repo.stargazersCount.toString(),
+                    textAlign: TextAlign.end,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.star,
+                    size: 18,
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    repo.forksCount.toString(),
+                    textAlign: TextAlign.end,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.web_stories,
+                    size: 18,
+                  )
+                ],
+              ),
             ],
-          )
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class UserCardGrid extends StatelessWidget {
+  final User user;
+  const UserCardGrid({Key? key, required this.user}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Image.network(
+              user.avatarUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              user.login,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+          //   child: Text(
+          //     place.location,
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class IssuesCardGrid extends StatelessWidget {
+  final Issues issues;
+  const IssuesCardGrid({Key? key, required this.issues}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Image.network(
+              issues.user.avatarUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              issues.title,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+            child: Text(
+              issues.updatedAt.year.toString(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RepoCardGrid extends StatelessWidget {
+  final Repo repo;
+  const RepoCardGrid({Key? key, required this.repo}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Image.network(
+              repo.owner.avatarUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              repo.name,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+            child: Text(
+              repo.createdAt.year.toString(),
+            ),
+          ),
         ],
       ),
     );

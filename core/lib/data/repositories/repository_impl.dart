@@ -1,5 +1,4 @@
 import 'package:core/data/datasources/remote_datasource.dart';
-import 'package:core/data/models/user_search_response.dart';
 import 'package:core/domain/entities/user.dart';
 import 'package:core/domain/entities/repo.dart';
 import 'package:core/domain/entities/issues.dart';
