@@ -7,17 +7,17 @@ class Repo extends Equatable {
     required this.name,
     required this.owner,
     required this.createdAt,
-    required this.forks,
+    required this.forksCount,
     required this.stargazersCount,
-    required this.watchers,
+    required this.watchersCount,
   });
 
   final int id;
   final String name;
   final User owner;
   final DateTime createdAt;
-  final int watchers;
-  final int forks;
+  final int watchersCount;
+  final int forksCount;
   final int stargazersCount;
 
   @override
@@ -26,8 +26,8 @@ class Repo extends Equatable {
     name,
     owner,
     createdAt,
-    forks,
+    forksCount,
     stargazersCount,
-    watchers,
+    watchersCount,
   ];
 }

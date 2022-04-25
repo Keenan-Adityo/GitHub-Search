@@ -8,7 +8,7 @@ class GetRepo {
 
   GetRepo(this.repository);
 
-  Future<Either<Failure, List<Repo>>> execute(String query) {
-    return repository.getRepo(query);
+  Future<Either<Failure, List<Repo>>> execute(String query, int page) {
+    return repository.getRepo(query, page);
   }
 }

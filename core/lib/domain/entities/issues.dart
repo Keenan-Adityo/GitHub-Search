@@ -5,7 +5,7 @@ class Issues extends Equatable {
   const Issues({
     required this.title,
     required this.updatedAt,
-    // required this.user,
+    required this.user,
     required this.id,
     required this.state,
   });
@@ -13,14 +13,14 @@ class Issues extends Equatable {
   final String state;
   final int id;
   final String title;
-  // final User user;
+  final User user;
   final DateTime updatedAt;
 
   @override
   List<Object?> get props => [
         title,
         updatedAt,
-        // required this.user,
+        user,
         id,
         state,
       ];

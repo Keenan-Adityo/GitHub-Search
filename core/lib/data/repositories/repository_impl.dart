@@ -14,44 +14,37 @@ class RepositoryImpl implements Repository {
   RepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<Issues>>> getIssues(String query) async {
+  Future<Either<Failure, List<Issues>>> getIssues(String query, int page) async {
     try {
-      print('ada disini');
-      final result = await remoteDataSource.getIssuesSearch(query);
+      final result = await remoteDataSource.getIssuesSearch(query, page);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
     } catch (e) {
-      print('gatau');
       return Left(CommonFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<Repo>>> getRepo(String query) async {
-    // try {
-    //   print('ada disini');
-    //   final result = await remoteDataSource.getRepoSearch(query);
-    //   return Right(result.map((model) => model.toEntity()).toList());
-    // } on ServerException {
-    //   return const Left(ServerFailure(''));
-    // } catch (e) {
-    //   print('gatau');
-    //   return Left(CommonFailure(e.toString()));
-    // }
-    throw UnimplementedError();
+  Future<Either<Failure, List<Repo>>> getRepo(String query, int page) async {
+    try {
+      final result = await remoteDataSource.getRepoSearch(query, page);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } catch (e) {
+      return Left(CommonFailure(e.toString()));
+    }
   }
 
   @override
   Future<Either<Failure, List<User>>> getUser(String query, int page) async {
     try {
-      print('ada disini');
       final result = await remoteDataSource.getUserSearch(query, page);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
     } catch (e) {
-      print('gatau');
       return Left(CommonFailure(e.toString()));
     }
   }

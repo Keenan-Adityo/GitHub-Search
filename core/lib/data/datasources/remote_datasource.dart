@@ -9,8 +9,8 @@ import 'package:http/http.dart' as http;
 
 abstract class RemoteDataSource {
   Future<List<UserModel>> getUserSearch(String query, int page);
-  Future<List<IssueModel>> getIssuesSearch(String query);
-  Future<List<RepoModel>> getRepoSearch(String query);
+  Future<List<IssuesModel>> getIssuesSearch(String query, int page);
+  Future<List<RepoModel>> getRepoSearch(String query, int page);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -34,31 +34,26 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<IssueModel>> getIssuesSearch(String query) async {
+  Future<List<IssuesModel>> getIssuesSearch(String query, int page) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/issues?q=$query&page=1&per_page=10'),
+      Uri.parse(_baseURL + '/issues?q=$query&page=$page&per_page=10'),
     );
 
-    print('nabrak');
-    final result = IssuesSearchResponse.fromJson(json.decode(response.body));
-    print(result);
-    print('leawt');
-
     if (response.statusCode == 200) {
-      return IssuesSearchResponse.fromJson(json.decode(response.body)).issue;
+      return IssuesSearchResponse.fromJson(json.decode(response.body)).items;
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<RepoModel>> getRepoSearch(String query) async {
+  Future<List<RepoModel>> getRepoSearch(String query, int page) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/repositories?q=$query&per_page=100'),
+      Uri.parse(_baseURL + '/repositories?q=$query&page=$page&per_page=10'),
     );
 
     if (response.statusCode == 200) {
-      return RepoSearchResponse.fromJson(json.decode(response.body)).repo;
+      return RepoSearchResponse.fromJson(json.decode(response.body)).items;
     } else {
       throw ServerException();
     }

@@ -8,7 +8,7 @@ class GetIssues {
 
   GetIssues(this.repository);
 
-  Future<Either<Failure, List<Issues>>> execute(String query) {
-    return repository.getIssues(query);
+  Future<Either<Failure, List<Issues>>> execute(String query, int page) {
+    return repository.getIssues(query, page);
   }
 }
