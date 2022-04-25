@@ -44,10 +44,12 @@ class EmptyIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
-        child: Center(
-            child: Text(
-      'Empty',
-      style: kHeading5.copyWith(fontWeight: FontWeight.bold),
-    )));
+      child: Center(
+        child: Text(
+          'Empty',
+          style: kHeading5.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
   }
 }

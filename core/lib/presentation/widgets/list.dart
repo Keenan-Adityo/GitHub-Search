@@ -52,7 +52,9 @@ class LazyLoadingList extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                 },
-                childCount: state.issuesResult.length,
+                childCount: (state.issuesHasReachedMax)
+                    ? state.issuesResult.length
+                    : state.issuesResult.length + 1,
               ),
             );
           } else {
@@ -73,7 +75,9 @@ class LazyLoadingList extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                 },
-                childCount: state.repoResult.length,
+                childCount: (state.repoHasReachedMax)
+                    ? state.repoResult.length
+                    : state.repoResult.length + 1,
               ),
             );
           } else {
@@ -155,7 +159,3 @@ class WithIndexList extends StatelessWidget {
     );
   }
 }
-
-
-
-
