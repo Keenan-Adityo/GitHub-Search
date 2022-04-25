@@ -43,10 +43,10 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<User>>> getUser(String query) async {
+  Future<Either<Failure, List<User>>> getUser(String query, int page) async {
     try {
       print('ada disini');
-      final result = await remoteDataSource.getUserSearch(query);
+      final result = await remoteDataSource.getUserSearch(query, page);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));

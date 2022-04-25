@@ -5,7 +5,7 @@ import 'package:core/utils/failure.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class Repository {
-  Future<Either<Failure, List<User>>> getUser(String query);
+  Future<Either<Failure, List<User>>> getUser(String query, int page);
   Future<Either<Failure, List<Issues>>> getIssues(String query);
   Future<Either<Failure, List<Repo>>> getRepo(String query);
 }

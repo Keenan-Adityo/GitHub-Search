@@ -8,7 +8,7 @@ class GetUser {
 
   GetUser(this.repository);
 
-  Future<Either<Failure, List<User>>> execute(String query) {
-    return repository.getUser(query);
+  Future<Either<Failure, List<User>>> execute(String query, int page) {
+    return repository.getUser(query, page);
   }
 }

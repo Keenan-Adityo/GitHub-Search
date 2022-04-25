@@ -8,7 +8,7 @@ import 'package:core/utils/exceptions.dart';
 import 'package:http/http.dart' as http;
 
 abstract class RemoteDataSource {
-  Future<List<UserModel>> getUserSearch(String query);
+  Future<List<UserModel>> getUserSearch(String query, int page);
   Future<List<IssueModel>> getIssuesSearch(String query);
   Future<List<RepoModel>> getRepoSearch(String query);
 }
@@ -21,16 +21,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   RemoteDataSourceImpl({required this.client});
 
   @override
-  Future<List<UserModel>> getUserSearch(String query) async {
+  Future<List<UserModel>> getUserSearch(String query, int page) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/users?q=$query&per_page=20'),
+      Uri.parse(_baseURL + '/users?q=$query&page=$page&per_page=10'),
     );
 
-    final result = UserSearchResponse.fromJson(json.decode(response.body));
-    print(result);
-
     if (response.statusCode == 200) {
-      return userSearchResponseFromJson(response.body).user;
+      return UserSearchResponse.fromJson(json.decode(response.body)).items;
     } else {
       throw ServerException();
     }
@@ -39,7 +36,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<List<IssueModel>> getIssuesSearch(String query) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/issues?q=$query&per_page=10'),
+      Uri.parse(_baseURL + '/issues?q=$query&page=1&per_page=10'),
     );
 
     print('nabrak');

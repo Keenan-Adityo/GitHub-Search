@@ -1,4 +1,5 @@
 import 'package:core/data/models/user_model.dart';
+import 'package:core/data/models/user_search_response.dart';
 import 'package:equatable/equatable.dart';
 
 class RepoSearchResponse extends Equatable {

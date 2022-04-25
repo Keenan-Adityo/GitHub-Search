@@ -17,3 +17,11 @@ class OnSubmittedUser extends SearchUserEvent {
   List<Object> get props => [query];
 }
 
+class OnScrollUser extends SearchUserEvent {
+  final String query;
+
+  const OnScrollUser(this.query);
+
+  @override
+  List<Object> get props => [query];
+}

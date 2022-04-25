@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:core/data/models/user_model.dart';
+import 'package:core/data/models/user_search_response.dart';
 import 'package:core/domain/entities/issues.dart';
 import 'package:equatable/equatable.dart';
 
